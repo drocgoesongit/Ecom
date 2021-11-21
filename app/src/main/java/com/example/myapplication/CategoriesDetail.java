@@ -75,7 +75,6 @@ public class CategoriesDetail extends AppCompatActivity {
                             }
                         }
                     }
-
                 }
                 binding.recyclerView.setAdapter(adapter);
                 binding.recyclerView.setLayoutManager(glm);

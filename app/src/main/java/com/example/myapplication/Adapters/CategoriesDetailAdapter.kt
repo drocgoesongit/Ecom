@@ -34,7 +34,7 @@ class CategoriesDetailAdapter(private val context: Context, private val productL
         val product = productList[position]
         Picasso.get().load(product.image).placeholder(R.drawable.ic_user_ecom).into(holder.image)
         holder.name.setText(product.name)
-        holder.price.text = "$ ${product.price}"
+        holder.price.text = "₹ ${product.price}"
         holder.rating.text = product.rating.toString()
         holder.itemView.setOnClickListener(View.OnClickListener {
             val id = product.id

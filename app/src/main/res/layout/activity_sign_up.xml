@@ -14,8 +14,8 @@
         android:layout_marginTop="10dp"
         android:fontFamily="@font/roboto_mono_medium"
         android:text="Sign Up"
-        android:textSize="28sp"
         android:textColor="@color/dark_black"
+        android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,126 +26,63 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="15dp"
-        android:fontFamily="@font/roboto_mono"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/roboto"
         android:text="Sign up with email"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout11"
+        style="@style/Theme.MyApplication.OultineBox"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="18dp"
-        android:background="@drawable/text_16_bg"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:startIconTint="@color/dark_black"
+
+        android:layout_marginBottom="15dp"
+        app:startIconDrawable="@drawable/ic_mail_ecom"
+        android:hint="email"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout10"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="20dp"
-            android:layout_height="16dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            app:srcCompat="@drawable/ic_mail_ecom" />
-
-        <EditText
-            android:id="@+id/mail_et"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:backgroundTint="#00FFFFFF"
-            android:ems="10"
-            android:fontFamily="@font/roboto_mono_bold"
-            android:hint="email"
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:textColor="@color/text_gray" />
-    </LinearLayout>
+            android:id="@+id/emailTxt" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout8"
+        style="@style/Theme.MyApplication.OultineBox"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
+        app:boxBackgroundColor="@color/light_gray"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="18dp"
-        android:background="@drawable/text_16_bg"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        android:layout_marginBottom="15dp"
+        app:startIconDrawable="@drawable/ic_user_ecom"
+        android:hint="username"
+        app:startIconTint="@color/dark_black"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout11"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="20dp"
-            android:layout_height="16dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            app:srcCompat="@drawable/ic_user_ecom" />
-
-        <EditText
-            android:id="@+id/user_et"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:backgroundTint="#00FFFFFF"
-            android:ems="10"
-            android:fontFamily="@font/roboto_mono_bold"
-            android:hint="username"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/usernameTxt"
             android:inputType="textPersonName"
-            android:textColor="@color/text_gray" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/text_16_bg"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/signUpBtn"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="20dp"
-            android:layout_height="16dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            app:srcCompat="@drawable/ic_pass_ecom" />
-
-        <EditText
-            android:id="@+id/pass_et"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:backgroundTint="#00FFFFFF"
-            android:ems="10"
-            android:fontFamily="@font/roboto_mono_bold"
-            android:hint="password"
-            android:inputType="textPassword"
-            android:textColor="@color/text_gray" />
-
-    </LinearLayout>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+       />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/signUpBtn"
@@ -158,13 +95,13 @@
         android:fontFamily="@font/roboto_mono"
         android:text="Sign Up"
         app:cornerRadius="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintBottom_toTopOf="@+id/dontaccount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/dontaccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
@@ -187,7 +124,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textView" />
+        app:layout_constraintStart_toEndOf="@+id/dontaccount" />
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="0dp"
@@ -209,5 +146,30 @@
             android:scaleType="centerCrop"
             android:src="@drawable/nike_banner" />
     </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout10"
+        style="@style/Theme.MyApplication.OultineBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        app:startIconTint="@color/dark_black"
+
+        app:startIconDrawable="@drawable/ic_pass_ecom"
+        android:layout_marginEnd="20dp"
+        app:endIconMode="password_toggle"
+        android:hint="password"
+        app:layout_constraintBottom_toTopOf="@+id/signUpBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:id="@+id/passTxt"
+            android:layout_marginBottom="20dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

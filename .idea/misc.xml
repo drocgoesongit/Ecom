@@ -8,17 +8,21 @@
         <entry key="..\:/MyApplication/app/src/main/res/drawable/half_rounded_bg.xml" value="0.19758412424503882" />
         <entry key="..\:/MyApplication/app/src/main/res/drawable/ic_home_ecom.xml" value="0.19758412424503882" />
         <entry key="..\:/MyApplication/app/src/main/res/drawable/text_16_bg.xml" value="0.23854166666666668" />
+        <entry key="..\:/MyApplication/app/src/main/res/layout/activity_add_address.xml" value="0.264" />
+        <entry key="..\:/MyApplication/app/src/main/res/layout/activity_cart_screen.xml" value="0.264" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/activity_categories_detail.xml" value="0.2" />
-        <entry key="..\:/MyApplication/app/src/main/res/layout/activity_log_in.xml" value="0.176" />
+        <entry key="..\:/MyApplication/app/src/main/res/layout/activity_log_in.xml" value="0.2" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/activity_product_detail.xml" value="0.264" />
-        <entry key="..\:/MyApplication/app/src/main/res/layout/activity_sign_up.xml" value="0.2" />
+        <entry key="..\:/MyApplication/app/src/main/res/layout/activity_sign_up.xml" value="0.264" />
+        <entry key="..\:/MyApplication/app/src/main/res/layout/cart_tile.xml" value="0.264" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/categories_tile.xml" value="0.1837719298245614" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/fragment_cart.xml" value="0.1837719298245614" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/fragment_cart2.xml" value="0.2" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/fragment_home.xml" value="0.23149171270718233" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/fragment_profile.xml" value="0.19517543859649122" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/product_tile.xml" value="0.264" />
+        <entry key="..\:/MyApplication/app/src/main/res/layout/size_tile.xml" value="0.4" />
         <entry key="..\:/MyApplication/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.1837719298245614" />
       </map>
     </option>
