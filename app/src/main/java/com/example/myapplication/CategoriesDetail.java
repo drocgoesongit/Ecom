@@ -3,9 +3,11 @@ package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.Toast;
@@ -39,8 +41,8 @@ public class CategoriesDetail extends AppCompatActivity {
 
         category = getIntent().getStringExtra("name");
         productList = new ArrayList<>();
-        glm = new GridLayoutManager(this,2);
-        adapter = new CategoriesDetailAdapter(this,productList);
+        glm = new GridLayoutManager(this, 2);
+        adapter = new CategoriesDetailAdapter(this,productList, category);
 
         binding.cartButtonCategories.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +52,7 @@ public class CategoriesDetail extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        binding.categoryNameText.setText(category);
 
         getList();
 
@@ -68,10 +71,13 @@ public class CategoriesDetail extends AppCompatActivity {
                 productList.clear();
                 for(DataSnapshot snapshot1: snapshot.getChildren()){
                     ProductClassified product = snapshot1.getValue(ProductClassified.class);
+                    Log.i("Info", "Product name" + product.getName());
                     if(product.getCategories() != null){
                         for(String categoryName: product.getCategories()){
+                            Log.i("Info", "Category name" + categoryName);
                             if(categoryName.equals(category)){
                                 productList.add(product);
+                                Log.i("Info", "Product added" + product.getName());
                             }
                         }
                     }

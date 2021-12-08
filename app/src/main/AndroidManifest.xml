@@ -11,6 +11,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
+            android:name=".PlaceOrder"
+            android:exported="false" />
+        <activity
+            android:name=".SelectAddress"
+            android:exported="false" />
+        <activity
+            android:name=".Checkout"
+            android:exported="false" />
+        <activity
             android:name=".AddAddress"
             android:exported="false" />
         <activity android:name=".SplashScreen">

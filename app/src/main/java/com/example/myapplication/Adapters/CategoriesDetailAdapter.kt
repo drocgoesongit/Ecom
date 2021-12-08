@@ -16,7 +16,7 @@ import com.example.myapplication.R
 import com.squareup.picasso.Picasso
 import kotlin.coroutines.coroutineContext
 
-class CategoriesDetailAdapter(private val context: Context, private val productList: ArrayList<ProductClassified>): RecyclerView.Adapter<CategoriesDetailAdapter.ViewHolder>() {
+class CategoriesDetailAdapter(private val context: Context, private val productList: ArrayList<ProductClassified>, private val category: String): RecyclerView.Adapter<CategoriesDetailAdapter.ViewHolder>() {
     class ViewHolder(val view: View): RecyclerView.ViewHolder(view){
         val image = itemView.findViewById<ImageView>(R.id.image)
         val name = itemView.findViewById<TextView>(R.id.name)
@@ -40,6 +40,7 @@ class CategoriesDetailAdapter(private val context: Context, private val productL
             val id = product.id
             val intent = Intent(context, ProductDetail::class.java)
             intent.putExtra("id",id)
+            intent.putExtra("category", category)
             context.startActivity(intent)
         })
         holder.heart.setOnClickListener{

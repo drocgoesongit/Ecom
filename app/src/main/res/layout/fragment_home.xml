@@ -16,7 +16,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/cartButtonHome"
@@ -37,7 +37,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/roboto"
-                android:text="cart fragment"
+                android:text="ZEYN Ecom"
                 android:textColor="@color/dark_black"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -109,11 +109,52 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
             <TextView
+                android:id="@+id/spotLightText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto"
+                android:text="In the Spotlight"
+                android:textColor="@color/dark_black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/categories_main_recyclerView" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/carouselSpotLightHolder"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="20dp"
+                app:cardCornerRadius="25dp"
+                app:layout_constraintDimensionRatio="3:4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/spotLightText">
+
+                <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+                    android:id="@+id/carouselSpotLight"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:autoPlayDelay="3000"
+                    app:infiniteCarousel="true"
+                    app:showBottomShadow="false"
+                    app:showNavigationButtons="false"
+                    app:showTopShadow="false" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
                 android:id="@+id/trendingText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/roboto"
                 android:text="Trending 🔥"
                 android:textColor="@color/dark_black"
@@ -122,7 +163,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/categories_main_recyclerView" />
+                app:layout_constraintTop_toBottomOf="@+id/carouselSpotLightHolder" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/trendingRecyclerView"
@@ -152,7 +193,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/trendingRecyclerView" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/browsingHistoryRecyclerView"
+                android:id="@+id/forYouRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -163,18 +204,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/forYouText" />
 
             <androidx.constraintlayout.widget.Group
+                android:id="@+id/browsingHistoryGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:constraint_referenced_ids="forYouText, browsingHistoryRecyclerView"
-                android:id="@+id/browsingHistoryGroup"
-                />
+                app:constraint_referenced_ids="forYouText, forYouRecyclerView" />
 
             <androidx.constraintlayout.widget.Group
+                android:id="@+id/trendingGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/trendingGroup"
-                app:constraint_referenced_ids="trendingRecyclerView, trendingText"
-                />
+                app:constraint_referenced_ids="trendingRecyclerView, trendingText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

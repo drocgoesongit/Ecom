@@ -30,15 +30,16 @@
 
     <TextView
         android:id="@+id/product_name_cart"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
         android:fontFamily="@font/roboto"
         android:text="Nike CR7 Mercurial"
         android:textColor="@color/dark_black"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/delete_cart_item"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/materialCardView2"
         app:layout_constraintTop_toTopOf="parent" />
@@ -60,8 +61,8 @@
 
     <androidx.constraintlayout.utils.widget.ImageFilterView
         android:id="@+id/plus_button_cart"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="6dp"
         android:src="@drawable/ic_ecom_plus_button"
@@ -73,23 +74,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
-        android:layout_marginTop="6dp"
         android:fontFamily="@font/roboto"
         android:text="3"
         android:textColor="@color/dark_black"
-        android:textSize="12sp"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/minusButtonCart"
         app:layout_constraintStart_toEndOf="@+id/plus_button_cart"
-        app:layout_constraintTop_toBottomOf="@+id/product_price_cart" />
+        app:layout_constraintTop_toTopOf="@+id/minusButtonCart" />
 
     <androidx.constraintlayout.utils.widget.ImageFilterView
         android:id="@+id/minusButtonCart"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginStart="6dp"
         android:layout_marginTop="6dp"
         android:src="@drawable/ic_ecom_minus_button"
         app:layout_constraintStart_toEndOf="@+id/product_quantity_cart"
         app:layout_constraintTop_toBottomOf="@+id/product_price_cart" />
+
+    <ImageView
+        android:id="@+id/delete_cart_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/ic_delete_ecom"
+        app:tint="@color/text_gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
