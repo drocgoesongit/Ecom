@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/MyApplication/app/src/main/res/drawable/bg_20dp_with_stroke.xml" value="0.20087719298245615" />
         <entry key="..\:/MyApplication/app/src/main/res/drawable/btn_dark_black_bg.xml" value="0.23854166666666668" />
+        <entry key="..\:/MyApplication/app/src/main/res/drawable/dp20_bg_with_stroke.xml" value="0.20087719298245615" />
         <entry key="..\:/MyApplication/app/src/main/res/drawable/dp30_lightgray_bg.xml" value="0.23854166666666668" />
         <entry key="..\:/MyApplication/app/src/main/res/drawable/half_rounded_bg.xml" value="0.19758412424503882" />
         <entry key="..\:/MyApplication/app/src/main/res/drawable/ic_home_ecom.xml" value="0.19758412424503882" />
@@ -30,8 +31,9 @@
         <entry key="..\:/MyApplication/app/src/main/res/layout/fragment_cart.xml" value="0.1837719298245614" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/fragment_cart2.xml" value="0.2" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/fragment_home.xml" value="0.136" />
-        <entry key="..\:/MyApplication/app/src/main/res/layout/fragment_profile.xml" value="0.19517543859649122" />
+        <entry key="..\:/MyApplication/app/src/main/res/layout/fragment_profile.xml" value="0.264" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/product_tile.xml" value="0.264" />
+        <entry key="..\:/MyApplication/app/src/main/res/layout/profile_element_tile.xml" value="0.264" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/size_tile.xml" value="0.4" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/small_product_tile.xml" value="0.264" />
         <entry key="..\:/MyApplication/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.1837719298245614" />
