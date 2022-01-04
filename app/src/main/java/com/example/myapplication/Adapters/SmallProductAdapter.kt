@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.Model.ProductClassified
-import com.example.myapplication.ProductDetail
+import com.example.myapplication.activities.ProductDetail
 import com.example.myapplication.R
 import com.squareup.picasso.Picasso
 
@@ -32,7 +32,7 @@ class SmallProductAdapter(val context: Context, val productList:ArrayList<Produc
         Log.i("Home", "product: ${product.name}")
         holder.name.setText(product.name)
         holder.price.setText("₹ ${product.price}")
-        Picasso.get().load(product.image).placeholder(R.drawable.ic_user_ecom).into(holder.image)
+        Picasso.get().load(product.image).placeholder(R.color.light_gray).into(holder.image)
         holder.itemView.setOnClickListener{
             val id = product.id
             val intent = Intent(context, ProductDetail::class.java)

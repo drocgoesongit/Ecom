@@ -1,4 +1,6 @@
-package com.example.myapplication;
+package com.example.myapplication.activities;
+
+import static com.example.myapplication.activities.CategoriesDetail.TAG_MAIN;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +13,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.myapplication.Adapters.CartAdapter;
 import com.example.myapplication.Adapters.CheckoutAdapter;
 import com.example.myapplication.Model.Address;
 import com.example.myapplication.Model.Order;
@@ -24,7 +25,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.nio.file.FileAlreadyExistsException;
 import java.util.ArrayList;
 
 public class PlaceOrder extends AppCompatActivity {
@@ -70,11 +70,11 @@ private String completeAddress;
                         setValue(order).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Log.i("Info", "Order added to database.");
+                        Log.w(TAG_MAIN, "Order added to database.");
                         FirebaseDatabase.getInstance().getReference().child("Carts").child(FirebaseAuth.getInstance().getUid()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
-                                Log.i("Info", "Cart emptied.");
+                                Log.w(TAG_MAIN, "Cart emptied.");
                                 Toast.makeText(PlaceOrder.this, "Order Placed.", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(PlaceOrder.this, Checkout.class);
                                 startActivity(intent);

@@ -11,18 +11,33 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".PlaceOrder"
+            android:name=".activities.ManageOrders"
             android:exported="false" />
         <activity
-            android:name=".SelectAddress"
+            android:name=".activities.About"
             android:exported="false" />
         <activity
-            android:name=".Checkout"
+            android:name=".activities.Settings"
             android:exported="false" />
         <activity
-            android:name=".AddAddress"
+            android:name=".activities.ManageAddress"
             android:exported="false" />
-        <activity android:name=".SplashScreen">
+        <activity
+            android:name=".activities.WishList"
+            android:exported="false" />
+        <activity
+            android:name=".activities.PlaceOrder"
+            android:exported="false" />
+        <activity
+            android:name=".activities.SelectAddress"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Checkout"
+            android:exported="false" />
+        <activity
+            android:name=".activities.AddAddress"
+            android:exported="false" />
+        <activity android:name=".activities.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,22 +45,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".CartScreen"
+            android:name=".activities.CartScreen"
             android:exported="false" />
         <activity
-            android:name=".ProductDetail"
+            android:name=".activities.ProductDetail"
             android:exported="false" />
         <activity
-            android:name=".CategoriesDetail"
+            android:name=".activities.CategoriesDetail"
             android:exported="false" />
         <activity
-            android:name=".LogIn"
+            android:name=".activities.LogIn"
             android:exported="false" />
         <activity
-            android:name=".SignUp"
+            android:name=".activities.SignUp"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true" />
 
         <meta-data

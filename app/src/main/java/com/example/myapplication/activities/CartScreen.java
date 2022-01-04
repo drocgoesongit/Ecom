@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,15 +7,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.text.method.CharacterPickerDialog;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.myapplication.Adapters.CartAdapter;
-import com.example.myapplication.Fragments.Cart;
 import com.example.myapplication.Model.Address;
-import com.example.myapplication.Model.Order;
 import com.example.myapplication.Model.ProductListItem;
 import com.example.myapplication.databinding.ActivityCartScreenBinding;
 import com.google.firebase.auth.FirebaseAuth;

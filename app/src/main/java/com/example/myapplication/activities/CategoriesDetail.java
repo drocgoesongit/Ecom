@@ -1,25 +1,20 @@
-package com.example.myapplication;
+package com.example.myapplication.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.GridLayout;
 import android.widget.Toast;
 
 import com.example.myapplication.Adapters.CategoriesDetailAdapter;
-import com.example.myapplication.Model.Categories;
 import com.example.myapplication.Model.ProductClassified;
-import com.example.myapplication.Model.Products;
 import com.example.myapplication.databinding.ActivityCategoriesDetailBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -31,6 +26,7 @@ public class CategoriesDetail extends AppCompatActivity {
     private GridLayoutManager glm;
     private CategoriesDetailAdapter adapter;
     private String category;
+    public static final String TAG_MAIN= "MainDebugging";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

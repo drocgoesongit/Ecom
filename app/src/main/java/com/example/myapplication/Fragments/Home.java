@@ -1,13 +1,17 @@
 package com.example.myapplication.Fragments;
 
+import static com.example.myapplication.activities.CategoriesDetail.TAG_MAIN;
+
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,13 +19,15 @@ import android.view.ViewGroup;
 
 import com.example.myapplication.Adapters.CategoriesSmallAdapter;
 import com.example.myapplication.Adapters.SmallProductAdapter;
-import com.example.myapplication.CartScreen;
+import com.example.myapplication.activities.CartScreen;
 import com.example.myapplication.Model.Banner;
 import com.example.myapplication.Model.Categories;
 import com.example.myapplication.Model.Groups;
 import com.example.myapplication.Model.ProductClassified;
-import com.example.myapplication.ProductDetail;
+import com.example.myapplication.activities.ProductDetail;
 import com.example.myapplication.databinding.FragmentHomeBinding;
+import com.example.myapplication.viewModel.ProductViewModel;
+import com.example.myapplication.viewModel.ViewModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -30,6 +36,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Home extends Fragment {
 
@@ -37,7 +44,7 @@ private FragmentHomeBinding binding;
 private CategoriesSmallAdapter adapter;
 private LinearLayoutManager llmForCategories;
 private ArrayList<CarouselItem> carouselItems;
-private ArrayList<Categories> categoriesList;
+private List<Categories> categoriesList;
 private ArrayList<ProductClassified> trendingList;
 private SmallProductAdapter adapterForTrending;
 private LinearLayoutManager llmForTrending;
@@ -47,6 +54,7 @@ private LinearLayoutManager llmForForYou;
 private ArrayList<CarouselItem> carouselForSpotLight;
 private String spotlighItemId;
 private String spotLightItemCategory;
+private ViewModel dataViewModel;
 
     public Home() {
         // Required empty public constructor
@@ -63,6 +71,7 @@ private String spotLightItemCategory;
         carouselItems = new ArrayList<>();
         carouselForSpotLight = new ArrayList<>();
         llmForCategories = new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false);
+        dataViewModel = new ViewModelProvider(this).get(ViewModel.class);
 
         setCarousel();
         setTrending();
@@ -125,6 +134,9 @@ private String spotLightItemCategory;
                             }
                         });
                     }
+                    else{
+                        Log.w(TAG_MAIN, "spotlight item missing.");
+                    }
                 }
             }
 
@@ -179,25 +191,46 @@ private String spotLightItemCategory;
     }
 
     private void setSmallCategories() {
-        Log.i("Home", "Set small categories called.");
-        FirebaseDatabase.getInstance().getReference().child("Categories").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                categoriesList.clear();
-                for(DataSnapshot snapshot1: snapshot.getChildren()){
-                    Categories category = snapshot1.getValue(Categories.class);
-                    categoriesList.add(category);
+        Log.i(TAG_MAIN, "Set small categories called.");
+        categoriesList.clear();
+        categoriesList = dataViewModel.getCategoriesList();
+        adapter = new CategoriesSmallAdapter(getContext(), categoriesList);
+        Log.w(TAG_MAIN, "CategoriesList size: "+ categoriesList.size());
+        binding.categoriesMainRecyclerView.setAdapter(adapter);
+        binding.categoriesMainRecyclerView.setLayoutManager(llmForCategories);
+        adapter.notifyDataSetChanged();
+
+        // Backup code if list is not retrieved properly.
+        if(categoriesList.size() == 0){
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    categoriesList = dataViewModel.getCategoriesList();
+                    adapter.setData(categoriesList);
+                    Log.w(TAG_MAIN, "Categorieslist size after update: "+ categoriesList.size());
                 }
-                adapter = new CategoriesSmallAdapter(getContext(), categoriesList);
-                binding.categoriesMainRecyclerView.setAdapter(adapter);
-                binding.categoriesMainRecyclerView.setLayoutManager(llmForCategories);
-            }
+            }, 3000);
+        }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+//        FirebaseDatabase.getInstance().getReference().child("Categories").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                categoriesList.clear();
+//                for(DataSnapshot snapshot1: snapshot.getChildren()){
+//                    Categories category = snapshot1.getValue(Categories.class);
+//                    categoriesList.add(category);
+//                }
+//                adapter = new CategoriesSmallAdapter(getContext(), categoriesList);
+//                binding.categoriesMainRecyclerView.setAdapter(adapter);
+//                binding.categoriesMainRecyclerView.setLayoutManager(llmForCategories);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
     }
 
     private void setTrending() {

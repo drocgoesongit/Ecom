@@ -21,8 +21,9 @@
         <entry key="..\:/MyApplication/app/src/main/res/layout/activity_place_order.xml" value="0.2" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/activity_product_detail.xml" value="0.136" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/activity_select_address.xml" value="0.264" />
-        <entry key="..\:/MyApplication/app/src/main/res/layout/activity_sign_up.xml" value="0.264" />
+        <entry key="..\:/MyApplication/app/src/main/res/layout/activity_sign_up.xml" value="0.176" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/activity_splash_screen.xml" value="0.2" />
+        <entry key="..\:/MyApplication/app/src/main/res/layout/activity_wish_list.xml" value="0.1837719298245614" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/address_tile.xml" value="0.264" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/cart_tile.xml" value="0.2" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/categories_tile.xml" value="0.1837719298245614" />
@@ -30,12 +31,13 @@
         <entry key="..\:/MyApplication/app/src/main/res/layout/facilities_tiles.xml" value="0.536" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/fragment_cart.xml" value="0.1837719298245614" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/fragment_cart2.xml" value="0.2" />
-        <entry key="..\:/MyApplication/app/src/main/res/layout/fragment_home.xml" value="0.136" />
+        <entry key="..\:/MyApplication/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/fragment_profile.xml" value="0.264" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/product_tile.xml" value="0.264" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/profile_element_tile.xml" value="0.264" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/size_tile.xml" value="0.4" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/small_product_tile.xml" value="0.264" />
+        <entry key="..\:/MyApplication/app/src/main/res/layout/wishlist_tile.xml" value="0.1837719298245614" />
         <entry key="..\:/MyApplication/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.1837719298245614" />
         <entry key="..\:/MyApplication/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
       </map>

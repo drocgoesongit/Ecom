@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -63,7 +63,7 @@ public class SignUp extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
-                                Users user = new Users(binding.usernameTxt.toString(), binding.emailTxt.getText().toString(), FirebaseAuth.getInstance().getUid());
+                                Users user = new Users(binding.usernameTxt.getText().toString(), binding.emailTxt.getText().toString(), FirebaseAuth.getInstance().getUid());
                                 FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getUid()).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void unused) {
@@ -78,7 +78,7 @@ public class SignUp extends AppCompatActivity {
                             }
                         }
                     });
-                    Intent intent = new Intent(SignUp.this, AddAddress.class);
+                    Intent intent = new Intent(SignUp.this, MainActivity.class);
                     startActivity(intent);
                 }
 

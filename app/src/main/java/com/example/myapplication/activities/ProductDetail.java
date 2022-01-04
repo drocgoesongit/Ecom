@@ -1,4 +1,6 @@
-package com.example.myapplication;
+package com.example.myapplication.activities;
+
+import static com.example.myapplication.activities.CategoriesDetail.TAG_MAIN;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,29 +10,26 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.myapplication.Adapters.CategoriesDetailAdapter;
 import com.example.myapplication.Adapters.FacilitiesAdapter;
 import com.example.myapplication.Adapters.SizeAdapter;
 import com.example.myapplication.Adapters.SmallProductAdapter;
-import com.example.myapplication.Model.Facilities;
-import com.example.myapplication.Model.Order;
+import com.example.myapplication.Model.Groups;
 import com.example.myapplication.Model.ProductClassified;
 import com.example.myapplication.Model.ProductListItem;
-import com.example.myapplication.Model.Products;
 import com.example.myapplication.Model.Size;
+import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivityProductDetailBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
 
@@ -55,6 +54,7 @@ public class ProductDetail extends AppCompatActivity {
     private String price;
     private String image;
     private String category;
+    private ArrayList<String> listOfWishlistItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +71,7 @@ public class ProductDetail extends AppCompatActivity {
         sizeList = new ArrayList<>();
         moreItemsProductList = new ArrayList<>();
         similarProductsList = new ArrayList<>();
+        listOfWishlistItem = new ArrayList<>();
 
         setHistory();
         setFacilities();
@@ -122,10 +123,16 @@ public class ProductDetail extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(  binding.heart.getTag().toString().equals("unfilled")){
+                    if(!checkIfItemAlreadyInWishlist()){
+                        addToWishlist();
+                        binding.heart.setImageResource(R.drawable.ic_filled_heart);
+                        binding.heart.setTag("filled");
+                    }
                     binding.heart.setImageResource(R.drawable.ic_filled_heart);
                     binding.heart.setTag("filled");
                 }
                 else if(  binding.heart.getTag().toString().equals("filled")){
+                    removeItemFromWishList();
                     binding.heart.setImageResource(R.drawable.ic_unfilled_heart);
                     binding.heart.setTag("unfilled");
                 }
@@ -222,6 +229,8 @@ public class ProductDetail extends AppCompatActivity {
         ProgressDialog pd = new ProgressDialog(this);
         pd.show();
 
+        checkIfItemAlreadyInWishlist();
+
         FirebaseDatabase.getInstance().getReference().child("Products").child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -269,5 +278,97 @@ public class ProductDetail extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+    }
+
+    private void addToWishlist(){
+        if(checkIfItemAlreadyInWishlist()){
+            Toast.makeText(ProductDetail.this, "product already in your wishlist.", Toast.LENGTH_SHORT);
+
+        }else{
+            FirebaseDatabase.getInstance().getReference().child("Wishlist").
+                    child(FirebaseAuth.getInstance().getUid()).
+                    child(id).
+                    child("id").setValue(id).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    Toast.makeText(ProductDetail.this, "Item added to wishlist.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+    }
+
+    private boolean checkIfItemAlreadyInWishlist() {
+        final boolean[] contains = {false};
+        FirebaseDatabase.getInstance().getReference().child("Wishlist").child(FirebaseAuth.getInstance().getUid()).
+                addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        listOfWishlistItem.clear();
+                        for(DataSnapshot snapshot1: snapshot.getChildren()){
+                            Groups item = snapshot1.getValue(Groups.class);
+                            listOfWishlistItem.add(item.getId());
+                        }
+                        Log.w(TAG_MAIN, "checkIfItemAlreadyINWishlist size of wishlist item." + listOfWishlistItem.size());
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+        if(listOfWishlistItem.size() == 0){
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if(listOfWishlistItem.contains(id)){
+                        Log.w(TAG_MAIN, "wishlist contains item.");
+                        contains[0] = true;
+                        binding.heart.setImageResource(R.drawable.ic_filled_heart);
+                        binding.heart.setTag("filled");
+                    }else{
+                        contains[0] = false;
+                    }
+                }
+            }, 2000);
+        }else{
+            if(listOfWishlistItem.contains(id)){
+                Log.w(TAG_MAIN, "wishlist contains item.");
+                contains[0] = true;
+            }else{
+                contains[0] = false;
+            }
+        }
+        return contains[0];
+    }
+
+    private void removeItemFromWishList(){
+        if(listOfWishlistItem.contains(id)){
+            FirebaseDatabase.getInstance().getReference().child("Wishlist").child(FirebaseAuth.getInstance().getUid())
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                              for(DataSnapshot snapshot1: snapshot.getChildren()){
+                                  Groups item = snapshot1.getValue(Groups.class);
+                                  if(item.getId().equals(id)){
+                                      String timeId = snapshot1.getKey();
+                                      FirebaseDatabase.getInstance().getReference().child("Wishlist").child(FirebaseAuth.getInstance().getUid())
+                                              .child(timeId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                          @Override
+                                          public void onSuccess(Void unused) {
+                                              Log.w(TAG_MAIN, "Item removed successfully");
+                                          }
+                                      });
+                                  }
+                              }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+        }
     }
 }

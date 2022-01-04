@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_user_ecom" />
+            android:src="@color/dark_gray" />
 
         <ImageView
             android:id="@+id/star_image"
@@ -44,17 +44,6 @@
             android:fontFamily="@font/roboto_mono"
             android:text="5.0"
             android:textColor="@color/dark_black" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/heart"
-            android:tag="unfilled"
-            android:src="@drawable/ic_unfilled_heart"
-            android:layout_gravity="bottom|right"
-           android:layout_margin="10dp"/>
-
-
 
     </com.google.android.material.card.MaterialCardView>
 

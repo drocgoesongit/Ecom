@@ -1,25 +1,17 @@
-package com.example.myapplication;
+package com.example.myapplication.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
-import android.widget.AbsListView;
-import android.widget.ListAdapter;
 import android.widget.Toast;
 
 import com.example.myapplication.Model.Address;
 import com.example.myapplication.databinding.ActivityAddAddressBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class AddAddress extends AppCompatActivity {
     private ActivityAddAddressBinding binding;

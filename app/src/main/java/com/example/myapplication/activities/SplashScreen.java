@@ -1,13 +1,12 @@
-package com.example.myapplication;
+package com.example.myapplication.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.MediaController;
 
+import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivitySplashScreenBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
