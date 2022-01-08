@@ -7,4 +7,7 @@
     <string name="select_address_on_which_you_want_current_delivery_to_get_performed_on">Select address on which you want current delivery to get performed on</string>
     <string name="my_wishlist">My Wishlist</string>
     <string name="nothing_to_see_here_try_pressing_the_heart_button_on_the_products_you_love">Nothing to see here. Try pressing the heart button on the products you love.</string>
+    <string name="no_orders_yet">No orders yet.</string>
+    <string name="manage_address">Manage Address</string>
+    <string name="add_another_address">Add Another Address</string>
 </resources>

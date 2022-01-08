@@ -10,7 +10,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-private const val TAG = "ProductViewModel"
+private const val TAG: String = "ProductViewModel"
 
 class ProductViewModel(application: Application): AndroidViewModel(application) {
     private var wishList: MutableList<String> = mutableListOf()

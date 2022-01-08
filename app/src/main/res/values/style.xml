@@ -9,4 +9,10 @@
         <item name="boxBackgroundColor">@color/light_gray</item>
     </style>
 
+    <style name= "ThemeOverlay_MaterialComponents_MaterialAlertDialog_FullWidthButtons" parent = "MaterialAlertDialog.Material3">
+        <item name = "cornerFamily">rounded</item>
+        <item name = "cornerRadius">16dp</item>
+        <item name = "android:backgroundDimEnabled">true</item>
+    </style>
+
 </resources>

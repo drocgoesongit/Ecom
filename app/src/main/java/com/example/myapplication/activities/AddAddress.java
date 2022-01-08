@@ -51,14 +51,12 @@ public class AddAddress extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void unused) {
                             Toast.makeText(AddAddress.this, "Address added successfully.", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(AddAddress.this, SelectAddress.class);
-                            startActivity(intent);
+                            finish();
                         }
                     });
                 }
 
             }
         });
-
     }
 }

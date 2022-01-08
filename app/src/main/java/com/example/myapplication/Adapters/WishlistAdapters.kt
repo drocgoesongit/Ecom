@@ -1,6 +1,5 @@
 package com.example.myapplication.Adapters
 
-import android.app.ProgressDialog
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,14 +8,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.Model.Groups
 import com.example.myapplication.Model.Products
 import com.example.myapplication.R
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
 
 class WishlistAdapters(private var productList: ArrayList<Products>, val context: Context): RecyclerView.Adapter<WishlistAdapters.MyViewHolder>() {
@@ -45,7 +40,7 @@ class WishlistAdapters(private var productList: ArrayList<Products>, val context
                 .removeValue()
                 .addOnSuccessListener {
                     productList.removeAt(position)
-                    setData(productList)
+                    updateData(productList)
                     Log.w("Wishlist", "size of list. ${productList.size}")
                     Log.w("Wishlist", "Single item removed. ${item.name}")
                 }
@@ -56,7 +51,7 @@ class WishlistAdapters(private var productList: ArrayList<Products>, val context
         return productList.size
     }
 
-    fun setData(updatedList: ArrayList<Products>){
+    fun updateData(updatedList: ArrayList<Products>){
         this.productList = updatedList
         notifyDataSetChanged()
     }

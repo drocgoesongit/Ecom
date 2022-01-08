@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class PlaceOrder extends AppCompatActivity {
 private ActivityPlaceOrderBinding binding;
@@ -60,18 +61,25 @@ private String completeAddress;
             }
         });
 
+        // placing the order on pressing place order button.
         binding.placeOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String id = String.valueOf(System.currentTimeMillis());
-                Order order = new Order(completeAddress, productList, String.valueOf(cartTotal), "placed", FirebaseAuth.getInstance().getUid());
-                FirebaseDatabase.getInstance().getReference().child("Orders").
-                        child(FirebaseAuth.getInstance().getUid()).child(id).
-                        setValue(order).addOnSuccessListener(new OnSuccessListener<Void>() {
+                Order order = new Order(completeAddress, productList, String.valueOf(cartTotal), "placed", FirebaseAuth.getInstance().getUid(), id);
+                FirebaseDatabase.getInstance().getReference()
+                        .child("Orders")
+                        .child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
+                        .child(id)
+                        .setValue(order).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         Log.w(TAG_MAIN, "Order added to database.");
-                        FirebaseDatabase.getInstance().getReference().child("Carts").child(FirebaseAuth.getInstance().getUid()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        FirebaseDatabase.getInstance().getReference()
+                                .child("Carts")
+                                .child(FirebaseAuth.getInstance().getUid())
+                                .removeValue().
+                                addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
                                 Log.w(TAG_MAIN, "Cart emptied.");

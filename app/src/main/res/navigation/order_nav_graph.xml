@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/order_nav_graph"
+    app:startDestination="@id/ordersList">
+
+    <fragment
+        android:id="@+id/ordersList"
+        android:name="com.example.myapplication.Fragments.order.OrdersList"
+        android:label="OrderList"
+        tools:layout="@layout/fragment_orders_list" >
+        <action
+            android:id="@+id/action_ordersList_to_orderDetail"
+            app:destination="@id/orderDetail" />
+        <action
+            android:id="@+id/action_ordersList_to_cancelOrder"
+            app:destination="@id/cancelOrder" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderDetail"
+        android:name="com.example.myapplication.Fragments.order.OrderDetail"
+        android:label="OrderDetail"
+        tools:layout="@layout/fragment_order_detail" >
+        <action
+            android:id="@+id/action_orderDetail_to_ordersList"
+            app:destination="@id/ordersList" />
+    </fragment>
+    <fragment
+        android:id="@+id/cancelOrder"
+        android:name="com.example.myapplication.Fragments.order.CancelOrder"
+        android:label="CancelOrder"
+        tools:layout="@layout/fragment_cancel_order" >
+        <action
+            android:id="@+id/action_cancelOrder_to_ordersList"
+            app:destination="@id/ordersList" />
+    </fragment>
+</navigation>

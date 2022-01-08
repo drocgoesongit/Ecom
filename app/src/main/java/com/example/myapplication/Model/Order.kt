@@ -5,5 +5,6 @@ data class Order (
     val productList: ArrayList<ProductListItem>? = null,
     val total: String? = null,
     val status: String? = null,
-    val consumer: String? = null
+    val consumer: String? = null,
+    val orderId: String? = null
 )

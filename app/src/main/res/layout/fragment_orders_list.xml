@@ -4,62 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ManageAddress">
-
+    tools:context=".Fragments.order.OrdersList">
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/textView3orders"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:fontFamily="@font/roboto"
-        android:text="@string/manage_address"
-        android:textColor="@color/dark_black"
-        android:textSize="24sp"
+        android:fontFamily="@font/roboto_mono_medium"
+        android:text="Orders"
         android:textStyle="bold"
+        android:textColor="@color/dark_black"
+        android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/allAddressRecyclerviewManage"
+        android:id="@+id/recyclerViewOrders"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginRight="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/addAddressButtonManage"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/addAddressButtonManage"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/dark_gray"
-        android:fontFamily="@font/roboto_mono"
-        android:text="@string/add_another_address"
-        android:textColor="#000000"
-        app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3orders"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/noAddress"
-        android:layout_width="wrap_content"
+        android:id="@+id/nothingHereTextOrders"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="No address try adding address."
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:fontFamily="@font/roboto"
+        android:textAlignment="center"
+        android:text="@string/no_orders_yet"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,9 +52,8 @@
     <androidx.constraintlayout.widget.Group
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/noAddressGroup"
-        app:constraint_referenced_ids="noAddress"
+        android:id="@+id/nothingElementGroup"
+        app:constraint_referenced_ids="nothingHereTextOrders"
         android:visibility="gone"
         />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
