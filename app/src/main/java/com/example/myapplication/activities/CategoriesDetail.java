@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -16,6 +18,7 @@ import com.example.myapplication.databinding.ActivityCategoriesDetailBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -52,10 +55,59 @@ public class CategoriesDetail extends AppCompatActivity {
 
         getList();
 
+        binding.searchEdittext.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                searchUsers(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
         binding.backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+    }
+
+    private void searchUsers(String s) {
+        Query query = FirebaseDatabase.getInstance().getReference().child("Products").orderByChild("name").startAt(s).endAt(s + "\uf8ff");
+
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                productList.clear();
+                for(DataSnapshot snap: snapshot.getChildren()){
+                    ProductClassified product = snap.getValue(ProductClassified.class);
+                    if(product.getCategories() != null){
+                        for(String categoryName: product.getCategories()){
+                            Log.i("Info", "Category name" + categoryName);
+                            if(categoryName.equals(category)){
+                                productList.add(product);
+                                Log.i("Info", "Product added" + product.getName());
+                            }
+                        }
+                    }
+                }
+                binding.recyclerView.setAdapter(adapter);
+                binding.recyclerView.setLayoutManager(glm);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }
