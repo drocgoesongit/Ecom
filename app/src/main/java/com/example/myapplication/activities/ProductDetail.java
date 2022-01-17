@@ -8,9 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -21,10 +23,12 @@ import com.example.myapplication.Adapters.SmallProductAdapter;
 import com.example.myapplication.Model.Groups;
 import com.example.myapplication.Model.ProductClassified;
 import com.example.myapplication.Model.ProductListItem;
+import com.example.myapplication.Model.Review;
 import com.example.myapplication.Model.Size;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivityProductDetailBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,6 +38,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ProductDetail extends AppCompatActivity {
     private ActivityProductDetailBinding binding;
@@ -55,6 +60,9 @@ public class ProductDetail extends AppCompatActivity {
     private String image;
     private String category;
     private ArrayList<String> listOfWishlistItem;
+    private static final String TAG = "ProductActivity";
+    private ProgressDialog pd;
+    private ArrayList<Review> reviewList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,12 +80,17 @@ public class ProductDetail extends AppCompatActivity {
         moreItemsProductList = new ArrayList<>();
         similarProductsList = new ArrayList<>();
         listOfWishlistItem = new ArrayList<>();
+        reviewList = new ArrayList<>();
+        pd = new ProgressDialog(this);
 
         setHistory();
         setFacilities();
         setActivity();
         setSimilarProduct();
         setMoreItem();
+
+        binding.ratingBar.setRating(2.5f);
+        binding.ratingBar.setStepSize(0.5f);
 
         binding.backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +104,13 @@ public class ProductDetail extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ProductDetail.this, CartScreen.class);
                 startActivity(intent);
+            }
+        });
+        
+        binding.postReviewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                postReview();
             }
         });
 
@@ -370,5 +390,65 @@ public class ProductDetail extends AppCompatActivity {
                         }
                     });
         }
+    }
+
+    private boolean checkReview(){
+        int rating = (int)binding.ratingBar.getRating();
+        if(rating == 0 ){
+            return false;
+        }
+        else if(TextUtils.isEmpty(binding.ratingText.getText())){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    private void postReview(){
+        if(checkReview()){
+            pd.setMessage("Posting review");
+            pd.show();
+            Log.w(TAG, "review is proper.");
+            String reviewId = String.valueOf(System.currentTimeMillis());
+            String rating = String.valueOf(binding.ratingBar.getRating());
+            String reviewText = binding.ratingText.getText().toString();
+            Review review = new Review(reviewId, FirebaseAuth.getInstance().getUid(), id, rating, reviewText);
+            FirebaseDatabase.getInstance().getReference().child("Reviews")
+                    .child(id)
+                    .child(reviewId)
+                    .setValue(review)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            FirebaseDatabase.getInstance().getReference().child("UserReviews")
+                                    .child(FirebaseAuth.getInstance().getUid())
+                                    .child(reviewId)
+                                    .child("id")
+                                    .setValue(reviewId).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    pd.dismiss();
+                                    Log.w(TAG, "review successfully posted to the DB");
+                                    Toast.makeText(ProductDetail.this, "Review posted successfully.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
+        }else{
+            Log.w(TAG, "review is not proper.");
+            new MaterialAlertDialogBuilder(ProductDetail.this, R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_FullWidthButtons)
+                    .setMessage("Enter proper review.")
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    })
+                    .show();
+        }
+    }
+
+    private void getReviewList(){
+        // TODO COMPLETE GETTING THE REVIEW INTO LIST AND CONTROL GROUP VISIBILITY.
     }
 }
