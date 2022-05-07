@@ -35,7 +35,6 @@ public class CartScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityCartScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getSupportActionBar().hide();
 
         addressList = new ArrayList<>();
         cartItemList = new ArrayList<>();
@@ -92,6 +91,7 @@ public class CartScreen extends AppCompatActivity {
                 binding.cartRecyclerView.setAdapter(adapter);
                 binding.cartRecyclerView.setLayoutManager(llm);
                 adapter.notifyDataSetChanged();
+                checkElementInCart();
             }
 
             @Override
@@ -99,6 +99,14 @@ public class CartScreen extends AppCompatActivity {
 
             }
         });
+        checkElementInCart();
+    }
 
+    private void checkElementInCart(){
+        if(cartItemList.size() == 0){
+            binding.noItemGroup.setVisibility(View.VISIBLE);
+        }else{
+            binding.noItemGroup.setVisibility(View.INVISIBLE);
+        }
     }
 }

@@ -21,7 +21,6 @@ public class AddAddress extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityAddAddressBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getSupportActionBar().hide();
 
         binding.addAddressButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -56,9 +56,24 @@ public class Profile extends Fragment {
         binding.logOutButtonProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(requireActivity(), LogIn.class);
-                startActivity(intent);
+                new MaterialAlertDialogBuilder(requireContext(), R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_FullWidthButtons)
+                        .setMessage("Logout from current account")
+                        .setTitle("Logout")
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        })
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                FirebaseAuth.getInstance().signOut();
+                                Intent intent = new Intent(requireActivity(), LogIn.class);
+                                startActivity(intent);
+                            }
+                        }).show();
+
             }
         });
 

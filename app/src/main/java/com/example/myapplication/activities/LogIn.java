@@ -24,7 +24,6 @@ private ProgressDialog pd;
         super.onCreate(savedInstanceState);
         binding = ActivityLogInBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getSupportActionBar().hide();
 
         onClickListeners();
 

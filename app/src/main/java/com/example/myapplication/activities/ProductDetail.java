@@ -3,9 +3,11 @@ package com.example.myapplication.activities;
 import static com.example.myapplication.activities.CategoriesDetail.TAG_MAIN;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewbinding.ViewBinding;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -14,10 +16,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.myapplication.Adapters.FacilitiesAdapter;
+import com.example.myapplication.Adapters.ReviewsAdapter;
 import com.example.myapplication.Adapters.SizeAdapter;
 import com.example.myapplication.Adapters.SmallProductAdapter;
 import com.example.myapplication.Model.Groups;
@@ -26,6 +32,7 @@ import com.example.myapplication.Model.ProductListItem;
 import com.example.myapplication.Model.Review;
 import com.example.myapplication.Model.Size;
 import com.example.myapplication.R;
+import com.example.myapplication.ZoomActivity;
 import com.example.myapplication.databinding.ActivityProductDetailBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -35,14 +42,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener;
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class ProductDetail extends AppCompatActivity {
     private ActivityProductDetailBinding binding;
-    private String id;
+    private String productId;
     private ArrayList<CarouselItem> carouselList;
     private ArrayList<Size> sizeList;
     private LinearLayoutManager llm;
@@ -63,19 +72,24 @@ public class ProductDetail extends AppCompatActivity {
     private static final String TAG = "ProductActivity";
     private ProgressDialog pd;
     private ArrayList<Review> reviewList;
+    private ReviewsAdapter adapterForReviewList;
+    private LinearLayoutManager llmForReviewList;
+    private ArrayList<String> listOfImageForZoom;
+    private Boolean hasUserReviewed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityProductDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getSupportActionBar().hide();
 
-        id = getIntent().getStringExtra("id");
+        productId = getIntent().getStringExtra("id");
         category = getIntent().getStringExtra("category");
         llm = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
 
+
         carouselList = new ArrayList<>();
+        listOfImageForZoom = new ArrayList<>();
         sizeList = new ArrayList<>();
         moreItemsProductList = new ArrayList<>();
         similarProductsList = new ArrayList<>();
@@ -88,9 +102,35 @@ public class ProductDetail extends AppCompatActivity {
         setActivity();
         setSimilarProduct();
         setMoreItem();
+        getReviewList();
 
-        binding.ratingBar.setRating(2.5f);
-        binding.ratingBar.setStepSize(0.5f);
+        binding.ratingBar.setRating(5f);
+        binding.ratingBar.setStepSize(1f);
+
+        // carousel click listener.
+        binding.carousel.setCarouselListener(new CarouselListener() {
+            @Nullable
+            @Override
+            public ViewBinding onCreateViewHolder(@NonNull LayoutInflater layoutInflater, @NonNull ViewGroup viewGroup) {
+                return null;
+            }
+
+            @Override
+            public void onBindViewHolder(@NonNull ViewBinding viewBinding, @NonNull CarouselItem carouselItem, int i) {
+
+            }
+
+            @Override
+            public void onLongClick(int position, @NotNull CarouselItem dataObject) {
+                // ...
+            }
+
+            @Override
+            public void onClick(int position, @NotNull CarouselItem carouselItem) {
+                Intent intent = new Intent(ProductDetail.this, ZoomActivity.class);
+                startActivity(intent);
+            }
+        });
 
         binding.backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,7 +163,7 @@ public class ProductDetail extends AppCompatActivity {
                 // Adding item to fd.
                 String itemId = String.valueOf(System.currentTimeMillis());
                 String size = adapterSize.getSelectedItemNo();
-                ProductListItem item = new ProductListItem(itemId,id, image, name, 1, Integer.parseInt(price), size);
+                ProductListItem item = new ProductListItem(itemId,productId, image, name, 1, Integer.parseInt(price), size);
                 FirebaseDatabase.getInstance().getReference().child("Carts").
                         child(FirebaseAuth.getInstance().getUid()).
                         child(itemId)
@@ -210,7 +250,7 @@ public class ProductDetail extends AppCompatActivity {
                     if(product.getCategories() != null){
                         for(String categoryName: product.getCategories()){
                             Log.i("Info", "Category name " + categoryName);
-                            if(categoryName.equals(category) && !product.getId().equals(id)){
+                            if(categoryName.equals(category) && !product.getId().equals(productId)){
                                 similarProductsList.add(product);
                                 Log.i("Info", "Product added" + product.getName() + "to similar products list.");
                             }
@@ -242,7 +282,7 @@ public class ProductDetail extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference().child("History").
                 child(FirebaseAuth.getInstance().getUid()).
                 child(String.valueOf(System.currentTimeMillis())).
-                child("id").setValue(id);
+                child("id").setValue(productId);
     }
 
     private void setActivity() {
@@ -251,7 +291,7 @@ public class ProductDetail extends AppCompatActivity {
 
         checkIfItemAlreadyInWishlist();
 
-        FirebaseDatabase.getInstance().getReference().child("Products").child(id).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("Products").child(productId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ProductClassified product = snapshot.getValue(ProductClassified.class);
@@ -276,6 +316,7 @@ public class ProductDetail extends AppCompatActivity {
 
                 // Setting Carousel.
                 if(product.getImageList() == null){
+                    listOfImageForZoom.add(product.getImage());
                     carouselList.add(new CarouselItem(product.getImage()));
                 }
                 if(product.getImageList() != null){
@@ -307,8 +348,8 @@ public class ProductDetail extends AppCompatActivity {
         }else{
             FirebaseDatabase.getInstance().getReference().child("Wishlist").
                     child(FirebaseAuth.getInstance().getUid()).
-                    child(id).
-                    child("id").setValue(id).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    child(productId).
+                    child("id").setValue(productId).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void unused) {
                     Toast.makeText(ProductDetail.this, "Item added to wishlist.", Toast.LENGTH_SHORT).show();
@@ -342,7 +383,7 @@ public class ProductDetail extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if(listOfWishlistItem.contains(id)){
+                    if(listOfWishlistItem.contains(productId)){
                         Log.w(TAG_MAIN, "wishlist contains item.");
                         contains[0] = true;
                         binding.heart.setImageResource(R.drawable.ic_filled_heart);
@@ -353,7 +394,7 @@ public class ProductDetail extends AppCompatActivity {
                 }
             }, 2000);
         }else{
-            if(listOfWishlistItem.contains(id)){
+            if(listOfWishlistItem.contains(productId)){
                 Log.w(TAG_MAIN, "wishlist contains item.");
                 contains[0] = true;
             }else{
@@ -364,14 +405,14 @@ public class ProductDetail extends AppCompatActivity {
     }
 
     private void removeItemFromWishList(){
-        if(listOfWishlistItem.contains(id)){
+        if(listOfWishlistItem.contains(productId)){
             FirebaseDatabase.getInstance().getReference().child("Wishlist").child(FirebaseAuth.getInstance().getUid())
                     .addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                               for(DataSnapshot snapshot1: snapshot.getChildren()){
                                   Groups item = snapshot1.getValue(Groups.class);
-                                  if(item.getId().equals(id)){
+                                  if(item.getId().equals(productId)){
                                       String timeId = snapshot1.getKey();
                                       FirebaseDatabase.getInstance().getReference().child("Wishlist").child(FirebaseAuth.getInstance().getUid())
                                               .child(timeId).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -412,9 +453,9 @@ public class ProductDetail extends AppCompatActivity {
             String reviewId = String.valueOf(System.currentTimeMillis());
             String rating = String.valueOf(binding.ratingBar.getRating());
             String reviewText = binding.ratingText.getText().toString();
-            Review review = new Review(reviewId, FirebaseAuth.getInstance().getUid(), id, rating, reviewText);
+            Review review = new Review(reviewId, FirebaseAuth.getInstance().getUid(), productId, rating, reviewText);
             FirebaseDatabase.getInstance().getReference().child("Reviews")
-                    .child(id)
+                    .child(productId)
                     .child(reviewId)
                     .setValue(review)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -430,6 +471,7 @@ public class ProductDetail extends AppCompatActivity {
                                     pd.dismiss();
                                     Log.w(TAG, "review successfully posted to the DB");
                                     Toast.makeText(ProductDetail.this, "Review posted successfully.", Toast.LENGTH_SHORT).show();
+                                    binding.ratingText.setText("");
                                 }
                             });
                         }
@@ -437,7 +479,7 @@ public class ProductDetail extends AppCompatActivity {
         }else{
             Log.w(TAG, "review is not proper.");
             new MaterialAlertDialogBuilder(ProductDetail.this, R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog_FullWidthButtons)
-                    .setMessage("Enter proper review.")
+                    .setMessage("Enter review properly.")
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -448,7 +490,42 @@ public class ProductDetail extends AppCompatActivity {
         }
     }
 
+    private void checkForNumberOfReviews(){
+        if(reviewList.size() == 0){
+            binding.customerReviewText.setText("No user reviews yet");
+        }else{
+            binding.customerReviewText.setText("User reviews");
+        }
+    }
+
     private void getReviewList(){
-        // TODO COMPLETE GETTING THE REVIEW INTO LIST AND CONTROL GROUP VISIBILITY.
+        FirebaseDatabase.getInstance().getReference().child("Reviews")
+                .child(productId)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        reviewList.clear();
+                        for(DataSnapshot snapshot1: snapshot.getChildren()){
+                            Review review = snapshot1.getValue(Review.class);
+                            if(review.getCustomerId().equals(FirebaseAuth.getInstance().getUid())){
+                                hasUserReviewed = true;
+                                binding.ratingBarGroup.setVisibility(View.GONE);
+                            }
+                            reviewList.add(review);
+                            adapterForReviewList = new ReviewsAdapter(ProductDetail.this, reviewList);
+                            llmForReviewList = new LinearLayoutManager(ProductDetail.this);
+                            binding.reviewsRecyclerView.setAdapter(adapterForReviewList);
+                            binding.reviewsRecyclerView.setLayoutManager(llmForReviewList);
+                            Log.w(TAG, "size of review list: " + reviewList.size());
+                            checkForNumberOfReviews();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.w(TAG, "Error while getting review List: "+ error.getMessage());
+                    }
+                });
+        checkForNumberOfReviews();
     }
 }

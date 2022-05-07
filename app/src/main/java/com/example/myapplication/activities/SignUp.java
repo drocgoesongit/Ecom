@@ -27,7 +27,6 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getSupportActionBar().hide();
 
         pd = new ProgressDialog(this);
         pd.setMessage("Creating your account");
@@ -69,7 +68,7 @@ public class SignUp extends AppCompatActivity {
                                     public void onSuccess(Void unused) {
                                         pd.dismiss();
                                         Toast.makeText(SignUp.this, "Account created successfully", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(SignUp.this, AddAddress.class);
+                                        Intent intent = new Intent(SignUp.this, MainActivity.class);
                                         startActivity(intent);
                                     }
                                 });

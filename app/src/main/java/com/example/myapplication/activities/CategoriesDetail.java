@@ -36,7 +36,7 @@ public class CategoriesDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityCategoriesDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getSupportActionBar().hide();
+
 
         category = getIntent().getStringExtra("name");
         productList = new ArrayList<>();
@@ -46,8 +46,7 @@ public class CategoriesDetail extends AppCompatActivity {
         binding.cartButtonCategories.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CategoriesDetail.this, MainActivity.class);
-                intent.putExtra("intention", "cart");
+                Intent intent = new Intent(CategoriesDetail.this, CartScreen.class);
                 startActivity(intent);
             }
         });

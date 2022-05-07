@@ -32,7 +32,7 @@ private ProgressDialog pd;
         super.onCreate(savedInstanceState);
         binding = ActivityManageAddressBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getSupportActionBar().hide();
+
 
         addressViewModel = new ViewModelProvider(this).get(AddressViewModel.class);
         addressList = new ArrayList<>();

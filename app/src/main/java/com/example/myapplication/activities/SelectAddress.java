@@ -32,7 +32,6 @@ private ProgressDialog pd;
         super.onCreate(savedInstanceState);
         binding = ActivitySelectAddressBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getSupportActionBar().hide();
 
         linearLayoutManager = new LinearLayoutManager(this);
         addressList = new ArrayList<>();
@@ -57,7 +56,7 @@ private ProgressDialog pd;
             @Override
             public void onClick(View v) {
                 Address selectedAddress = addressList.get(adapter.getClickedItem());
-                Intent intent = new Intent(SelectAddress.this, PlaceOrder.class);
+                Intent intent = new Intent(SelectAddress.this, PaymentMode.class);
                 intent.putExtra("address", selectedAddress.getId());
                 startActivity(intent);
             }

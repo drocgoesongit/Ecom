@@ -19,9 +19,10 @@
         <entry key="..\:/MyApplication/app/src/main/res/layout/activity_categories_detail.xml" value="0.2" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/activity_checkout.xml" value="0.1837719298245614" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/activity_log_in.xml" value="0.2" />
-        <entry key="..\:/MyApplication/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/MyApplication/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/activity_manage_address.xml" value="0.264" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/activity_manage_orders.xml" value="0.1837719298245614" />
+        <entry key="..\:/MyApplication/app/src/main/res/layout/activity_payment_mode.xml" value="0.264" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/activity_place_order.xml" value="0.2" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/activity_product_detail.xml" value="0.2511990407673861" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/activity_select_address.xml" value="0.264" />
@@ -29,15 +30,16 @@
         <entry key="..\:/MyApplication/app/src/main/res/layout/activity_sign_up.xml" value="0.176" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/activity_splash_screen.xml" value="0.2" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/activity_wish_list.xml" value="0.1837719298245614" />
+        <entry key="..\:/MyApplication/app/src/main/res/layout/activity_zoom.xml" value="0.264" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/address_tile.xml" value="0.264" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/cart_tile.xml" value="0.2" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/categories_tile.xml" value="0.1837719298245614" />
-        <entry key="..\:/MyApplication/app/src/main/res/layout/checkout_order_item.xml" value="0.4" />
+        <entry key="..\:/MyApplication/app/src/main/res/layout/checkout_order_item.xml" value="0.2" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/facilities_tiles.xml" value="0.2" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/fragment_cancel_order.xml" value="0.2" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/fragment_cart.xml" value="0.1837719298245614" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/fragment_cart2.xml" value="0.2" />
-        <entry key="..\:/MyApplication/app/src/main/res/layout/fragment_home.xml" value="0.264" />
+        <entry key="..\:/MyApplication/app/src/main/res/layout/fragment_home.xml" value="0.16" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/fragment_order_detail.xml" value="0.1837719298245614" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/fragment_orders_list.xml" value="0.1837719298245614" />
         <entry key="..\:/MyApplication/app/src/main/res/layout/fragment_profile.xml" value="0.264" />

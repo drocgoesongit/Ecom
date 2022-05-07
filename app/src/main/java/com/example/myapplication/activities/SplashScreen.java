@@ -18,13 +18,13 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivitySplashScreenBinding.inflate(getLayoutInflater());
         setContentView(R.layout.activity_splash_screen);
-        getSupportActionBar().hide();
+
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 if(FirebaseAuth.getInstance().getCurrentUser() != null){
-                    Intent i = new Intent(SplashScreen.this, SignUp.class);
+                    Intent i = new Intent(SplashScreen.this, MainActivity.class);
                     startActivity(i);
                 }
                 else{
@@ -33,7 +33,5 @@ public class SplashScreen extends AppCompatActivity {
                 }
             }
         }, 2500);
-
-
     }
 }

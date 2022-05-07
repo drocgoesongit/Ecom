@@ -9,14 +9,13 @@ import android.view.View;
 import com.example.myapplication.databinding.ActivityCheckoutBinding;
 
 public class Checkout extends AppCompatActivity {
-private ActivityCheckoutBinding binding;
+    private ActivityCheckoutBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityCheckoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getSupportActionBar().hide();
 
         binding.continueShoppingButton.setOnClickListener(new View.OnClickListener() {
             @Override

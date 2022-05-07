@@ -375,7 +375,7 @@ Style: 842194-010"
                     android:layout_height="wrap_content"
                     android:id="@+id/ratingBarGroup"
                     android:visibility="visible"
-                    app:constraint_referenced_ids="ratingBar,ratingtextInputLayout, postReviewButton"/>
+                    app:constraint_referenced_ids="ratethisProductText, ratingBar,ratingtextInputLayout, postReviewButton"/>
 
                 <androidx.constraintlayout.widget.Group
                     android:layout_width="wrap_content"

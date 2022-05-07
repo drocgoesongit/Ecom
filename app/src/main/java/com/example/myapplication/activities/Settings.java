@@ -50,7 +50,6 @@ private ProgressDialog pd2;
         super.onCreate(savedInstanceState);
         binding = ActivitySettingsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getSupportActionBar().hide();
 
         pd = new ProgressDialog(this);
         pd.setMessage("updating your profile");

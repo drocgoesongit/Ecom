@@ -87,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/roboto"
                 android:text="@string/categories"
                 android:textColor="@color/dark_black"
@@ -114,7 +114,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/roboto"
                 android:text="In the Spotlight"
                 android:textColor="@color/dark_black"
@@ -155,7 +155,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="20dp"
                 android:fontFamily="@font/roboto"
                 android:text="Trending 🔥"
                 android:textColor="@color/dark_black"
@@ -216,6 +216,9 @@
                 android:layout_height="wrap_content"
                 app:constraint_referenced_ids="trendingRecyclerView, trendingText" />
 
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </ScrollView>
 </LinearLayout>

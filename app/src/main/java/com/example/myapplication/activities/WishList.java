@@ -26,20 +26,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WishList extends AppCompatActivity {
-private ActivityWishListBinding binding;
-private ProductViewModel productViewModel;
-private List<String> listOfWishListString;
-private ArrayList<Products> wishListForAdapter;
-private static final String TAG = "Wishlist";
-private WishlistAdapters adapterForWishlist;
-private LinearLayoutManager llm;
+    private ActivityWishListBinding binding;
+    private ProductViewModel productViewModel;
+    private List<String> listOfWishListString;
+    private ArrayList<Products> wishListForAdapter;
+    private static final String TAG = "Wishlist";
+    private WishlistAdapters adapterForWishlist;
+    private LinearLayoutManager llm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityWishListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getSupportActionBar().hide();
 
         productViewModel = new ViewModelProvider(this).get(ProductViewModel.class);
         listOfWishListString = productViewModel.getWishList();

@@ -6,4 +6,4 @@ data class Review (
     val productId: String? = null,
     val rating: String? = null,
     val review: String? = null
-        )
+)

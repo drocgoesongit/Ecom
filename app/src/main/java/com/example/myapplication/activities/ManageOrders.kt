@@ -17,7 +17,6 @@ class ManageOrders : AppCompatActivity() {
             layoutInflater
         )
         setContentView(binding!!.root)
-        supportActionBar!!.hide()
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.orderNavHostFragment) as NavHostFragment
         navController = navHostFragment.navController

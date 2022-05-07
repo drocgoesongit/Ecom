@@ -26,6 +26,8 @@ class ReviewsAdapter(private val context: Context, private val reviewList: Array
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val item = reviewList[position]
+        holder.review.text = item.review
+
        // Picasso.get().load(item.)
     }
 

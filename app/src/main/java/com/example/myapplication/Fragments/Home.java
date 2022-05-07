@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewbinding.ViewBinding;
 
 import android.os.Handler;
 import android.util.Log;
@@ -24,6 +26,8 @@ import com.example.myapplication.Model.Banner;
 import com.example.myapplication.Model.Categories;
 import com.example.myapplication.Model.Groups;
 import com.example.myapplication.Model.ProductClassified;
+import com.example.myapplication.activities.CategoriesDetail;
+import com.example.myapplication.activities.MainActivity;
 import com.example.myapplication.activities.ProductDetail;
 import com.example.myapplication.databinding.FragmentHomeBinding;
 import com.example.myapplication.viewModel.ProductViewModel;
@@ -33,6 +37,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener;
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
 
 import java.util.ArrayList;
@@ -78,6 +83,7 @@ private ViewModel dataViewModel;
         setSmallCategories();
         setForYou();
         setSpotLightItem();
+        delayedCheck();
 
         binding.cartButtonHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,13 +92,53 @@ private ViewModel dataViewModel;
                 startActivity(intent);
             }
         });
-        binding.carouselSpotLight.setOnClickListener(new View.OnClickListener() {
+        binding.carouselSpotLight.setCarouselListener(new CarouselListener() {
+            @Nullable
             @Override
-            public void onClick(View v) {
+            public ViewBinding onCreateViewHolder(@NonNull LayoutInflater layoutInflater, @NonNull ViewGroup viewGroup) {
+                return null;
+            }
+
+            @Override
+            public void onBindViewHolder(@NonNull ViewBinding viewBinding, @NonNull CarouselItem carouselItem, int i) {
+
+            }
+
+            @Override
+            public void onClick(int i, @NonNull CarouselItem carouselItem) {
                 Intent intent = new Intent(getContext(), ProductDetail.class);
                 intent.putExtra("id", spotlighItemId);
                 intent.putExtra("category", spotLightItemCategory);
                 startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(int i, @NonNull CarouselItem carouselItem) {
+
+            }
+        });
+        binding.carousel.setCarouselListener(new CarouselListener() {
+            @Nullable
+            @Override
+            public ViewBinding onCreateViewHolder(@NonNull LayoutInflater layoutInflater, @NonNull ViewGroup viewGroup) {
+                return null;
+            }
+
+            @Override
+            public void onBindViewHolder(@NonNull ViewBinding viewBinding, @NonNull CarouselItem carouselItem, int i) {
+
+            }
+
+            @Override
+            public void onClick(int i, @NonNull CarouselItem carouselItem) {
+                Intent intent = new Intent(requireContext(), CategoriesDetail.class);
+                intent.putExtra("name", "offers");
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(int i, @NonNull CarouselItem carouselItem) {
+
             }
         });
 
@@ -211,26 +257,6 @@ private ViewModel dataViewModel;
                 }
             }, 3000);
         }
-
-
-//        FirebaseDatabase.getInstance().getReference().child("Categories").addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                categoriesList.clear();
-//                for(DataSnapshot snapshot1: snapshot.getChildren()){
-//                    Categories category = snapshot1.getValue(Categories.class);
-//                    categoriesList.add(category);
-//                }
-//                adapter = new CategoriesSmallAdapter(getContext(), categoriesList);
-//                binding.categoriesMainRecyclerView.setAdapter(adapter);
-//                binding.categoriesMainRecyclerView.setLayoutManager(llmForCategories);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
     }
 
     private void setTrending() {
@@ -298,5 +324,19 @@ private ViewModel dataViewModel;
         });
 
         binding.carousel.start();
+    }
+
+    // Adding a delayed check for categories because sometimes even with three second delay we were not
+    // getting the categories list properly.
+    private void delayedCheck(){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(categoriesList.size() == 0 ){
+                    Log.i("category", "Categories size after the delayed check is null.");
+                    setSmallCategories();
+                }
+            }
+        },5000);
     }
 }

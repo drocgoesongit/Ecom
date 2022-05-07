@@ -15,4 +15,21 @@
         <item name = "android:backgroundDimEnabled">true</item>
     </style>
 
+    <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
+    </style>
+
+
+    <style name="ThemeOverlay.App.BottomNavigationView" parent="">
+        <item name="colorSurface">@color/light_gray</item>
+        <item name="colorOnSurfaceVariant">@color/text_gray</item>
+        <item name="colorSecondaryContainer">@color/dark_gray</item>
+        <item name="colorOnSecondaryContainer">@color/black</item>
+        <item name="elevation">3dp</item>
+        <item name="itemRippleColor">@color/white</item>
+    </style>
+
+
+
+
 </resources>

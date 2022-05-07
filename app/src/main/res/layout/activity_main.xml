@@ -20,18 +20,22 @@
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            app:labelVisibilityMode="unlabeled"
+            android:background="@color/light_gray"
+            app:itemIconSize="24sp"
+            style="@style/Widget.App.BottomNavigationView"
+            android:elevation="3dp"
+            app:labelVisibilityMode="labeled"
             app:menu="@menu/bottom_navigation_menu"
              />
 
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

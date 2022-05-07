@@ -14,7 +14,7 @@ private ActivityAboutBinding binding;
         super.onCreate(savedInstanceState);
         binding = ActivityAboutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        getSupportActionBar().hide();
+
 
     }
 }
