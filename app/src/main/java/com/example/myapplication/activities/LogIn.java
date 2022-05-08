@@ -28,11 +28,13 @@ private ProgressDialog pd;
         onClickListeners();
 
         pd = new ProgressDialog(this);
+        pd.setMessage("Logging into your account");
 
         binding.logInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (checkForProperInput()) {
+                    pd.show();
                     FirebaseAuth.getInstance().signInWithEmailAndPassword(
                             binding.emailTxtlg.getText().toString(),
                             binding.passTxtlg.getText().toString()).
@@ -40,9 +42,11 @@ private ProgressDialog pd;
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
+                                pd.dismiss();
                                 Intent intent = new Intent(LogIn.this, MainActivity.class);
                                 startActivity(intent);
                             }else{
+                                pd.dismiss();
                                 Toast.makeText(LogIn.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }

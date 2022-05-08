@@ -75,6 +75,7 @@ public class ProductDetail extends AppCompatActivity {
     private ReviewsAdapter adapterForReviewList;
     private LinearLayoutManager llmForReviewList;
     private ArrayList<String> listOfImageForZoom;
+    private ArrayList<String> listOfHistory;
     private Boolean hasUserReviewed = false;
 
     @Override
@@ -91,6 +92,7 @@ public class ProductDetail extends AppCompatActivity {
         carouselList = new ArrayList<>();
         listOfImageForZoom = new ArrayList<>();
         sizeList = new ArrayList<>();
+        listOfHistory = new ArrayList<>();
         moreItemsProductList = new ArrayList<>();
         similarProductsList = new ArrayList<>();
         listOfWishlistItem = new ArrayList<>();
@@ -279,10 +281,37 @@ public class ProductDetail extends AppCompatActivity {
     }
 
     private void setHistory() {
-        FirebaseDatabase.getInstance().getReference().child("History").
-                child(FirebaseAuth.getInstance().getUid()).
-                child(String.valueOf(System.currentTimeMillis())).
-                child("id").setValue(productId);
+        FirebaseDatabase.getInstance().getReference().child("History")
+                .child(FirebaseAuth.getInstance().getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.hasChildren()){
+                            for(DataSnapshot snapshot1: snapshot.getChildren()){
+                                Groups item = snapshot1.getValue(Groups.class);
+                                listOfHistory.add(item.getId());
+                            }
+                            if(!listOfHistory.contains(productId)){
+                                FirebaseDatabase.getInstance().getReference().child("History").
+                                        child(FirebaseAuth.getInstance().getUid()).
+                                        child(String.valueOf(System.currentTimeMillis())).
+                                        child("id").setValue(productId);
+                            }
+                        }else{
+                            FirebaseDatabase.getInstance().getReference().child("History").
+                                    child(FirebaseAuth.getInstance().getUid()).
+                                    child(String.valueOf(System.currentTimeMillis())).
+                                    child("id").setValue(productId);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
     }
 
     private void setActivity() {

@@ -18,6 +18,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Objects;
+
 public class SignUp extends AppCompatActivity {
     private ActivitySignUpBinding binding;
     private ProgressDialog pd;
@@ -54,6 +56,7 @@ public class SignUp extends AppCompatActivity {
         binding.signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pd.show();
                 if(checkForProperInput()){
                     FirebaseAuth.getInstance().getInstance().createUserWithEmailAndPassword(
                             binding.emailTxt.getText().toString(),
@@ -73,12 +76,11 @@ public class SignUp extends AppCompatActivity {
                                     }
                                 });
                             }else{
-                                Toast.makeText(SignUp.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                pd.dismiss();
+                                Toast.makeText(SignUp.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
-                    Intent intent = new Intent(SignUp.this, MainActivity.class);
-                    startActivity(intent);
                 }
 
             }

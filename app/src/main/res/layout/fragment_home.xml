@@ -204,6 +204,33 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/forYouText" />
 
+            <TextView
+                android:id="@+id/basedOnYourText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/roboto"
+                android:text="Based on your history"
+                android:textColor="@color/dark_black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/forYouRecyclerView" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/basedOnYourRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:clipChildren="true"
+                android:paddingStart="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/basedOnYourText" />
+
             <androidx.constraintlayout.widget.Group
                 android:id="@+id/browsingHistoryGroup"
                 android:layout_width="wrap_content"
@@ -216,6 +243,12 @@
                 android:layout_height="wrap_content"
                 app:constraint_referenced_ids="trendingRecyclerView, trendingText" />
 
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/historyGroup"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="basedOnYourRecyclerView, basedOnYourText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

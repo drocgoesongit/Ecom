@@ -55,13 +55,11 @@ int GOOGLE_PAY_REQUEST_CODE = 123;
 public static final String GOOGLE_PAY_PACKAGE_NAME = "com.google.android.apps.nbu.paisa.user";
 // payment code
     String amount;
-    String name = "pavan n";
-    String upiId = "pavan.n.sap@okaxis";
-    String transactionNote = "Test payment";
+    String name = "Yasier";
+    String upiId = "yasirmohammed122002@okicici";
+    String transactionNote = "Order purchase";
     String status;
     Uri uri;
-
-private PaymentsClient paymentsClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +128,7 @@ private PaymentsClient paymentsClient;
         }
 
         if ((RESULT_OK == requestCode) && status.equals("success")){
+            completeOrder();
             Toast.makeText(PlaceOrder.this, "Transaction Successful", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(PlaceOrder.this, "Transaction unsuccessful", Toast.LENGTH_SHORT).show();

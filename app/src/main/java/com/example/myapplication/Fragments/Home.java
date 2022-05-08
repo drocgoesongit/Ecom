@@ -32,6 +32,7 @@ import com.example.myapplication.activities.ProductDetail;
 import com.example.myapplication.databinding.FragmentHomeBinding;
 import com.example.myapplication.viewModel.ProductViewModel;
 import com.example.myapplication.viewModel.ViewModel;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -42,6 +43,7 @@ import org.imaginativeworld.whynotimagecarousel.model.CarouselItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Home extends Fragment {
 
@@ -56,10 +58,14 @@ private LinearLayoutManager llmForTrending;
 private ArrayList<ProductClassified> forYouList;
 private SmallProductAdapter adapterForForYou;
 private LinearLayoutManager llmForForYou;
+private ArrayList<ProductClassified> historyList;
+private SmallProductAdapter adapterForHistory;
+private LinearLayoutManager llmForHistory;
 private ArrayList<CarouselItem> carouselForSpotLight;
 private String spotlighItemId;
 private String spotLightItemCategory;
 private ViewModel dataViewModel;
+private ArrayList<String> listOfIdForHistory;
 
     public Home() {
         // Required empty public constructor
@@ -73,9 +79,12 @@ private ViewModel dataViewModel;
         forYouList = new ArrayList<>();
         categoriesList = new ArrayList<>();
         trendingList = new ArrayList<>();
+        historyList = new ArrayList<>();
         carouselItems = new ArrayList<>();
+        listOfIdForHistory = new ArrayList<>();
         carouselForSpotLight = new ArrayList<>();
         llmForCategories = new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false);
+        llmForHistory = new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, true);
         dataViewModel = new ViewModelProvider(this).get(ViewModel.class);
 
         setCarousel();
@@ -84,6 +93,7 @@ private ViewModel dataViewModel;
         setForYou();
         setSpotLightItem();
         delayedCheck();
+        setHistory();
 
         binding.cartButtonHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,6 +153,60 @@ private ViewModel dataViewModel;
         });
 
         return binding.getRoot();
+    }
+
+    private void setHistory() {
+        FirebaseDatabase.getInstance().getReference()
+                .child("History")
+                .child(Objects.requireNonNull(FirebaseAuth.getInstance().getUid()))
+                .limitToLast(5)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.hasChildren()){
+                            binding.historyGroup.setVisibility(View.VISIBLE);
+                                for(DataSnapshot snapshot1: snapshot.getChildren()){
+                                    Groups item = snapshot1.getValue(Groups.class);
+                                    if(!listOfIdForHistory.contains(item.getId())){
+                                        if(Objects.requireNonNull(item).getId() != null ){
+                                            FirebaseDatabase.getInstance().getReference().child("Products")
+                                                    .child(item.getId())
+                                                    .addValueEventListener(new ValueEventListener() {
+                                                        @Override
+                                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                            ProductClassified product = snapshot.getValue(ProductClassified.class);
+                                                            Log.w(TAG_MAIN,"got product for history: " + product.getName());
+                                                            historyList.add(product);
+                                                            listOfIdForHistory.add(item.getId());
+
+                                                            adapterForHistory = new SmallProductAdapter(getContext(), historyList, "cleats");
+                                                            binding.basedOnYourRecyclerView.setAdapter(adapterForHistory);
+                                                            binding.basedOnYourRecyclerView.setLayoutManager(llmForHistory);
+
+
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(@NonNull DatabaseError error) {
+                                                            Log.w(TAG_MAIN, "Error while getting product for history.");
+                                                            binding.historyGroup.setVisibility(View.GONE);
+                                                        }
+                                                    });
+                                        }
+                                    }
+
+                                }
+
+                        }else{
+                            Log.w(TAG_MAIN, "no item in history");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
     }
 
     private void setSpotLightItem() {

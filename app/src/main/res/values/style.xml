@@ -29,7 +29,11 @@
         <item name="itemRippleColor">@color/white</item>
     </style>
 
-
+    <style name="h2" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/roboto</item>
+    </style>
 
 
 </resources>
