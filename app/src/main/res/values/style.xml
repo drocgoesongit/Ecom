@@ -21,9 +21,10 @@
 
 
     <style name="ThemeOverlay.App.BottomNavigationView" parent="">
-        <item name="colorSurface">@color/light_gray</item>
+
         <item name="colorOnSurfaceVariant">@color/text_gray</item>
-        <item name="colorSecondaryContainer">@color/dark_gray</item>
+        <item name="colorSecondaryContainer">@color/white</item>
+<!--        indicator color above one-->
         <item name="colorOnSecondaryContainer">@color/black</item>
         <item name="elevation">3dp</item>
         <item name="itemRippleColor">@color/white</item>
